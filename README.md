@@ -1,6 +1,7 @@
 # olena-kholod
+Open some folder and:  
 
-Run `git clone https://github.com/bachinsky1/olena-kholod.git`
+Run `git clone https://github.com/bachinsky1/olena-kholod.git .`
 
 Copy `.env.example` to `.env` and change DB connection data if it needs
 
