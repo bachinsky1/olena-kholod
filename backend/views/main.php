@@ -10,7 +10,13 @@
 </head>
 
 <body>
-
+    <nav class="navbar navbar-light bg-light mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+            <img src="https://getbootstrap.com//docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24">
+            </a>
+        </div>
+    </nav>
     <div class="container-fluid">
         <div class="row">
             <div class="col-2" id="categoriesContainer">

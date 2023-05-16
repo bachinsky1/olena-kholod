@@ -131,7 +131,7 @@ router.get('/categories/:id', async (req, context) => {
     renderPage(data)
 })
 
-router.get('/categories/:id/sort/:sort', async (req, context) => {
+router.get('/categories/:id/:sort', async (req, context) => {
     const id: string = req.params.id.toString()
 
     const data: IData = await fetchData(`/api/categories/${id}/${sortType}`)
@@ -139,7 +139,7 @@ router.get('/categories/:id/sort/:sort', async (req, context) => {
 })
 
 router.get('/', async () => {
-    const data: IData = await fetchData(`/api/categories/${sortType}`)
+    const data: IData = await fetchData(`/api/categories`)
     renderPage(data)
 })
 
