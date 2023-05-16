@@ -26,9 +26,17 @@ interface IData {
 }
 
 async function fetchData(route: string) {
+
+    const activeCategoryContainer = document.getElementById('goodsContainer')
+    if (activeCategoryContainer === null) return
+
+    activeCategoryContainer.innerHTML = ''
     route = window.location.origin + route
 
+    const spinner = document.getElementById('spinner')
+    spinner?.setAttribute('style', 'display: flex;')
     const response = await fetch(route)
+    spinner?.setAttribute('style', 'display: none !important;')
 
     if (response.ok) {
         const result = await response.json()
@@ -81,21 +89,24 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
     const activeCategoryContainer = document.getElementById('goodsContainer')
     if (activeCategoryContainer === null) return
 
-    activeCategoryContainer.classList.add('card-group')
+    activeCategoryContainer.classList.add('row')
+    activeCategoryContainer.classList.add('row-cols-md-4')
     activeCategoryContainer.innerHTML = ''
 
     for (const item of active) {
         const div = document.createElement('div')
-        div.classList.add('card')
-        div.setAttribute('style', 'width: 18rem;')
+        div.classList.add('col')
+        // div.setAttribute('style', 'width: 18rem;')
         div.innerHTML = /*html*/`
-        <div class="card-body">
-            <h5 class="card-title">${item.name}</h5>
-            <p class="card-text">${item.description}</p>
-            <p class="card-text">${item.price.toFixed(2)}</p>
-            <p class="card-text"><small class="text-muted">Last updated ${item.date}</small></p>
-        </div>
-    `
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">${item.name}</h5>
+                    <p class="card-text">${item.description}</p>
+                    <p class="card-text">${item.price.toFixed(2)}</p>
+                    <p class="card-text"><small class="text-muted">Last updated ${item.date}</small></p>
+                </div>
+            </div>`
+
         activeCategoryContainer?.appendChild(div)
     }
 }

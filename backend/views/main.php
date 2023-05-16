@@ -18,20 +18,30 @@
         </div>
     </nav>
     <div class="container-fluid">
+        
         <div class="row">
-            <div class="col-2" id="categoriesContainer">
+            <div class="col-2">
                 <h3>Categories</h3>
+                <div id="categoriesContainer"></div>
             </div>
-            <div class="col-8" id="goodsContainer">
+            <div class="col-8">
                 <h3>Goods</h3>
+                <div class="d-flex justify-content-center" id="spinner" style="display: none;">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div id="goodsContainer"></div>
             </div>
-            <div class="col-2" id="filtersContainer">
+            <div class="col-2">
                 <h3>Filters</h3>
-                <select class="form-select" id="filter" aria-label="Default select example"> 
-                    <option value="1" selected>cheaper first</option>
-                    <option value="2">alphabetically</option>
-                    <option value="3">new first</option>
-                </select>
+                <div id="filtersContainer">
+                    <select class="form-select" id="filter" aria-label="Default select example"> 
+                        <option value="1" selected>cheaper first</option>
+                        <option value="2">alphabetically</option>
+                        <option value="3">new first</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div> 
