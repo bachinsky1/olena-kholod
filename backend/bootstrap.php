@@ -39,11 +39,13 @@ $router = new Router();
 $router->setNamespace('\App\Controllers'); 
 
 $router->mount('/api', function() use ($router) {
-    $router->get('/categories/(\d+)', 'ApiController@getCategories');
+    $router->get('/categories/{id}/{sort}', 'ApiController@getCategories');
+    $router->get('/categories/{id}', 'ApiController@getCategories');
     $router->get('/categories', 'ApiController@getCategories');
 });
 
-$router->get('/categories/(\d+)', 'IndexController@index');
+$router->get('/categories/{id}/{sort}', 'IndexController@index');
+$router->get('/categories/{id}', 'IndexController@index');
 $router->get('/categories', 'IndexController@index');
 $router->get('/', 'IndexController@index'); 
 

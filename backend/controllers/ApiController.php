@@ -13,12 +13,15 @@ class ApiController
         header('Content-Type: application/json');
     }
 
-    public function getCategories(int $id = null)
+    public function getCategories(int $id = null, int $sort = null)
     { 
-        if ($id === null) $id = 1;
+        
+        if ($id == null) $id = 1;
+        if ($sort == null) $sort = 1;
+        
         echo json_encode([
             'categories' => $this->categories->getAll(),
-            'active' => $this->categories->getOne($id)
+            'active' => $this->categories->getOne($id, $sort)
         ], JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);  
     }
 

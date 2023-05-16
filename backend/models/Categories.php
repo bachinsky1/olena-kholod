@@ -22,10 +22,23 @@ class Categories extends Model
         );
     }
 
-    public function getOne(int $id): array
+    public function getOne(int $id, int $sort = 1): array
     {
-        if (!!$id === false) return [];
+        if (!!$id === false) return []; 
 
-        return $this->app->db->rows("SELECT * FROM goods WHERE category_id = ?;", [$id]);
+        $sortCondition = " ORDER BY goods.price ASC";
+
+        switch($sort) {
+            case 2:
+                $sortCondition = " ORDER BY goods.name";
+                break;
+            case 3:
+                break;
+                $sortCondition = " ORDER BY goods.date DESC";
+            default:
+
+        }
+
+        return $this->app->db->rows("SELECT * FROM goods WHERE category_id = ? $sortCondition;", [$id]);
     }
 }

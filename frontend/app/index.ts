@@ -2,6 +2,7 @@
 import { createRouter } from 'routerjs'
 
 const router = createRouter()
+let sortType = 1
 
 interface ICategory {
     id: number,
@@ -26,6 +27,7 @@ interface IData {
 
 async function fetchData(route: string) {
     route = window.location.origin + route
+
     const response = await fetch(route)
 
     if (response.ok) {
@@ -105,6 +107,18 @@ function renderPage(data: IData) {
     renderActiveCategory(data.active)
 }
 
+function addEventListeners() {
+    const filter = document.getElementById('filter')
+    if (filter) {
+        filter.addEventListener('change', (e) => {
+            const select = e.target as HTMLSelectElement
+            const selectedValue = select.options[select.selectedIndex].value
+            sortType = Number(selectedValue)
+            router.run()
+        })
+    }
+}
+
 router.get('/categories', async () => {
     const data: IData = await fetchData('api/categories')
     renderPage(data)
@@ -113,13 +127,22 @@ router.get('/categories', async () => {
 
 router.get('/categories/:id', async (req, context) => {
     const id: string = req.params.id.toString()
-    const data: IData = await fetchData(`/api/categories/${id}`)
+    const data: IData = await fetchData(`/api/categories/${id}/${sortType}`)
+    renderPage(data)
+})
+
+router.get('/categories/:id/sort/:sort', async (req, context) => {
+    const id: string = req.params.id.toString()
+
+    const data: IData = await fetchData(`/api/categories/${id}/${sortType}`)
     renderPage(data)
 })
 
 router.get('/', async () => {
-    const data: IData = await fetchData(`/api/categories`)
+    const data: IData = await fetchData(`/api/categories/${sortType}`)
     renderPage(data)
 })
+
+addEventListeners()
 
 router.run()
