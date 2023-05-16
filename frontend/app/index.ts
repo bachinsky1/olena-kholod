@@ -43,20 +43,16 @@ function setState(state: string) {
     router.run()
 }
 
-function renderPage(data: IData) {
-
-    if (data.categories.length === 0) return
-
+function renderCategories(categories: Array<ICategory>) {
+    // Render categories
     const categoriesContainer = document.getElementById('categoriesContainer')
-    const activeCategoryContainer = document.getElementById('goodsContainer')
-
-    if (activeCategoryContainer === null || categoriesContainer === null) return
+    if (categoriesContainer === null) return
 
     const div = document.createElement('div')
 
     div.classList.add('list-group')
 
-    for (const item of data.categories) {
+    for (const item of categories) {
 
         const link: HTMLAnchorElement = document.createElement('a')
 
@@ -74,27 +70,39 @@ function renderPage(data: IData) {
         div.appendChild(link)
     }
 
-
     categoriesContainer.innerHTML = ''
     categoriesContainer.appendChild(div)
+}
+
+function renderActiveCategory(active: Array<IActiveCategory>) {
+    // Render active category
+    const activeCategoryContainer = document.getElementById('goodsContainer')
+    if (activeCategoryContainer === null) return
 
     activeCategoryContainer.classList.add('card-group')
     activeCategoryContainer.innerHTML = ''
 
-    for (const item of data.active) {
+    for (const item of active) {
         const div = document.createElement('div')
         div.classList.add('card')
         div.setAttribute('style', 'width: 18rem;')
         div.innerHTML = /*html*/`
-            <div class="card-body">
-                <h5 class="card-title">${item.name}</h5>
-                <p class="card-text">${item.description}</p>
-                <p class="card-text">${item.price.toFixed(2)}</p>
-                <p class="card-text"><small class="text-muted">Last updated ${item.date}</small></p>
-            </div>
-        `
+        <div class="card-body">
+            <h5 class="card-title">${item.name}</h5>
+            <p class="card-text">${item.description}</p>
+            <p class="card-text">${item.price.toFixed(2)}</p>
+            <p class="card-text"><small class="text-muted">Last updated ${item.date}</small></p>
+        </div>
+    `
         activeCategoryContainer?.appendChild(div)
     }
+}
+
+function renderPage(data: IData) {
+    if (data.categories.length === 0) return
+
+    renderCategories(data.categories)
+    renderActiveCategory(data.active)
 }
 
 router.get('/categories', async () => {
