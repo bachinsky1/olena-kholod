@@ -10,6 +10,7 @@ spl_autoload_register(function () {
     require_once __DIR__ . "/../backend/Apllication.php";
     require_once  __DIR__ . "/../backend/controllers/Controller.php";
     require_once  __DIR__ . "/../backend/controllers/IndexController.php";
+    require_once  __DIR__ . "/../backend/controllers/ApiController.php";
 });
  
 use Dcblogdev\PdoWrapper\Database;
@@ -32,10 +33,18 @@ $app->db = new Database([
     'host' => $_ENV['DB_HOST'],
     'port' => $_ENV['DB_PORT']
 ]);
- 
 
-// make a router
-$app->router = new Router();
-$app->router->setNamespace('\App\Controllers');
-$app->router->get('/', 'IndexController@index');
-$app->router->run();
+// make a router here
+$router = new Router();
+$router->setNamespace('\App\Controllers'); 
+
+$router->mount('/api', function() use ($router) {
+    $router->get('/categories/(\d+)', 'ApiController@getCategories');
+    $router->get('/categories', 'ApiController@getCategories');
+});
+
+$router->get('/categories/(\d+)', 'IndexController@index');
+$router->get('/categories', 'IndexController@index');
+$router->get('/', 'IndexController@index'); 
+
+$router->run();

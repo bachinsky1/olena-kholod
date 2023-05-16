@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 class Categories extends Model
@@ -9,14 +11,21 @@ class Categories extends Model
         parent::__construct();
     }
 
-    public function getAll() 
+    public function getAll(): array
     {
-        return $this->app->db->rows("SELECT 
-                                        c.id, c.name, COUNT(p.id) AS product_count 
-                                    FROM categories c 
-                                    LEFT JOIN goods p ON c.id = p.category_id 
-                                    GROUP BY c.id;"
+        return $this->app->db->rows(
+            "SELECT 
+                c.id, c.name, COUNT(p.id) AS count 
+            FROM categories c 
+            LEFT JOIN goods p ON c.id = p.category_id 
+            GROUP BY c.id;"
         );
     }
-    
+
+    public function getOne(int $id): array
+    {
+        if (!!$id === false) return [];
+
+        return $this->app->db->rows("SELECT * FROM goods WHERE category_id = ?;", [$id]);
+    }
 }
