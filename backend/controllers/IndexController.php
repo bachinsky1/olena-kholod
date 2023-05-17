@@ -10,7 +10,7 @@ class IndexController extends Controller
             'leftHeader' => "Categories",
             'centertHeader' => "Goods",
             'rightHeader' => "Filters",
-
+            'loading' => "Loading...",
         ]);
 
         include __DIR__ . "/../views/main.php";

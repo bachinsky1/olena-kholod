@@ -28,7 +28,7 @@
                 <h3><?= $centertHeader ?></h3>
                 <div class="d-flex justify-content-center" id="spinner" style="display: none;">
                     <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                        <span class="visually-hidden"><?= $loading ?></span>
                     </div>
                 </div>
                 <div id="goodsContainer"></div>

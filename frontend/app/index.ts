@@ -7,13 +7,11 @@ let currentSortType = Number(localStorage.getItem("currentSortType")) | 1
 let currentCategory = Number(localStorage.getItem("currentCategory")) | 1
 
 setState(`/categories/${currentCategory}/${currentSortType}`)
-
 interface ICategory {
     id: number,
     name: string,
     count: number
 }
-
 interface IActiveCategory {
     category_id: number,
     count: number,
@@ -23,12 +21,10 @@ interface IActiveCategory {
     name: string,
     price: number,
 }
-
 interface IData {
     categories: Array<ICategory>,
     active: Array<IActiveCategory>,
 }
-
 interface Dataset {
     name: string,
     description: string,
@@ -147,7 +143,7 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
 
         if (btn) {
             btn.addEventListener('click', (e) => {
-                 
+
                 const modalName = document.getElementById('modal-name')
                 const modalDescription = document.getElementById('modal-description')
                 const modalPrice = document.getElementById('modal-price')
@@ -161,7 +157,7 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
                     (modalDescription as HTMLParagraphElement).innerText = item.description || ''
                 }
 
-                if (modalPrice) { 
+                if (modalPrice) {
                     (modalPrice as HTMLParagraphElement).innerText = item.price.toFixed(2).toString()
                 }
 
@@ -224,8 +220,6 @@ function addEventListeners() {
             setState(`/categories/${currentCategory}/${currentSortType}`)
         })
     }
-
-
 }
 
 router.get('/categories', async () => {
@@ -255,4 +249,5 @@ router.get('/', async () => {
 renderModal()
 
 addEventListeners()
+
 router.run()

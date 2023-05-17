@@ -24,11 +24,11 @@ class Categories extends Model
 
     public function getOne(int $id, int $sort = 1): array
     {
-        if (!!$id === false) return []; 
+        if (!!$id === false) return [];
 
         $sortCondition = " ORDER BY goods.price ASC";
 
-        switch($sort) {
+        switch ($sort) {
             case 2:
                 $sortCondition = " ORDER BY goods.name";
                 break;
@@ -37,8 +37,6 @@ class Categories extends Model
                 break;
             default:
         }
-
-        // var_dump($sort);
 
         return $this->app->db->rows("SELECT * FROM goods WHERE category_id = ? $sortCondition;", [$id]);
     }

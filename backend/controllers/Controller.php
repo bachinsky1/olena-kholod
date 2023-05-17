@@ -1,7 +1,8 @@
 <?php 
 namespace App\Controllers;
 
-class Controller
+// Here should set some additional common functionality
+abstract class Controller
 {
     public function __construct()
     {
