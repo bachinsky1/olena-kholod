@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 class IndexController extends Controller
 {
-    public function index()
+    public static function index()
     {
         // It's a simple example of transfering data to view. It should been more improved
         extract([
@@ -12,7 +12,7 @@ class IndexController extends Controller
             'rightHeader' => "Filters",
 
         ]);
-        
+
         include __DIR__ . "/../views/main.php";
     }
 }

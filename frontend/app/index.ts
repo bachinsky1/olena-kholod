@@ -2,7 +2,11 @@
 import { createRouter } from 'routerjs'
 
 const router = createRouter()
-let sortType = 1
+
+let currentSortType = Number(localStorage.getItem("currentSortType")) | 1
+let currentCategory = Number(localStorage.getItem("currentCategory")) | 1
+
+setState(`/categories/${currentCategory}/${currentSortType}`)
 
 interface ICategory {
     id: number,
@@ -35,7 +39,7 @@ async function fetchData(route: string) {
 
     const spinner = document.getElementById('spinner')
     spinner?.setAttribute('style', 'display: flex;')
-    
+
     const response = await fetch(route)
     spinner?.setAttribute('style', 'display: none !important;')
 
@@ -74,8 +78,12 @@ function renderCategories(categories: Array<ICategory>) {
 
         link.addEventListener('click', (e) => {
             if (!(e.target instanceof HTMLAnchorElement)) return
+            currentCategory = Number(e.target.dataset.category_id)
 
-            setState(`/categories/${e.target.dataset.category_id}`)
+            localStorage.setItem("currentCategory", currentCategory.toString())
+            localStorage.setItem("currentSortType", currentSortType.toString())
+            localStorage.setItem('currentCategory', currentCategory.toString())
+            setState(`/categories/${currentCategory}/${currentSortType}`)
         })
 
         div.appendChild(link)
@@ -83,6 +91,18 @@ function renderCategories(categories: Array<ICategory>) {
 
     categoriesContainer.innerHTML = ''
     categoriesContainer.appendChild(div)
+}
+
+function renderFilters() {
+    const select = document.getElementById('filter') as HTMLSelectElement
+
+    select.innerHTML = /*html*/`
+        <option value="1" selected>Cheaper first</option>
+        <option value="2">Alphabetically</option>
+        <option value="3">New first</option>
+    `
+    select.selectedIndex = currentSortType - 1
+
 }
 
 function renderActiveCategory(active: Array<IActiveCategory>) {
@@ -97,14 +117,15 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
     for (const item of active) {
         const div = document.createElement('div')
         div.classList.add('col')
-        
+
         div.innerHTML = /*html*/`
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">${item.name}</h5>
                     <p class="card-text">${item.description}</p>
                     <p class="card-text">${item.price.toFixed(2)}</p>
                     <p class="card-text"><small class="text-muted">Last updated ${item.date}</small></p>
+                    <a href="#" data-id="${item.id}" class="btn btn-primary">Buy this</a>
                 </div>
             </div>`
 
@@ -113,6 +134,7 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
 }
 
 function renderPage(data: IData) {
+    renderFilters()
     if (data.categories.length === 0) return
 
     renderCategories(data.categories)
@@ -125,8 +147,10 @@ function addEventListeners() {
         filter.addEventListener('change', (e) => {
             const select = e.target as HTMLSelectElement
             const selectedValue = select.options[select.selectedIndex].value
-            sortType = Number(selectedValue)
-            router.run()
+            currentSortType = Number(selectedValue)
+
+            localStorage.setItem('currentSortType', currentSortType.toString())
+            setState(`/categories/${currentCategory}/${currentSortType}`)
         })
     }
 }
@@ -135,24 +159,24 @@ router.get('/categories', async () => {
     const data: IData = await fetchData('/api/categories')
     renderPage(data)
     console.log(data)
-}) 
+})
 
 router.get('/categories/:id', async (req, context) => {
     const id: string = req.params.id.toString()
-    const data: IData = await fetchData(`/api/categories/${id}/${sortType}`)
+    const data: IData = await fetchData(`/api/categories/${id}/${currentSortType}`)
     renderPage(data)
 })
 
 router.get('/categories/:id/:sort', async (req, context) => {
     const id: string = req.params.id.toString()
 
-    const data: IData = await fetchData(`/api/categories/${id}/${sortType}`)
+    const data: IData = await fetchData(`/api/categories/${id}/${currentSortType}`)
     renderPage(data)
 })
 
 router.get('/', async () => {
     const data: IData = await fetchData(`/api/categories`)
-    renderPage(data) 
+    renderPage(data)
 })
 
 addEventListeners()

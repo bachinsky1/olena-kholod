@@ -37,9 +37,7 @@
                 <h3><?=$rightHeader?></h3>
                 <div id="filtersContainer">
                     <select class="form-select" id="filter" aria-label="Default select example"> 
-                        <option value="1" selected>cheaper first</option>
-                        <option value="2">alphabetically</option>
-                        <option value="3">new first</option>
+                        
                     </select>
                 </div>
             </div>
