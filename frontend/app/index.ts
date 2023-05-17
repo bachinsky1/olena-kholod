@@ -133,12 +133,7 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
                     <p class="card-text">${item.price.toFixed(2)}</p>
                     <p class="card-text"><small class="text-muted">Last updated ${item.date}</small></p>
                     <button type="button" 
-                        class="btn btn-primary" 
-                        data-name="${item.name}"
-                        data-description="${item.description}"
-                        data-price="${item.price}"
-                        data-date="${item.date}"
-                        data-id="${item.id}"
+                        class="btn btn-primary"
                         data-bs-toggle="modal" 
                         data-bs-target="#myModal"
                         id="open-modal-${item.id}">
@@ -150,44 +145,33 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
         activeCategoryContainer?.appendChild(div)
 
         const btn = document.querySelector(`#open-modal-${item.id}`)
-        
+
         if (btn) {
             btn.addEventListener('click', (e) => {
-                const data = (e.target as HTMLElement).dataset
-
-                const dataset: Dataset = {
-                    name: data.name || '',
-                    description: data.description || '',
-                    price: data.price || '',
-                    date: data.date || '',
-                }
-
+                 
                 const modalName = document.getElementById('modal-name')
                 const modalDescription = document.getElementById('modal-description')
                 const modalPrice = document.getElementById('modal-price')
                 const modalDate = document.getElementById('modal-date')
 
                 if (modalName) {
-                    (modalName as HTMLParagraphElement).innerText = dataset.name
+                    (modalName as HTMLParagraphElement).innerText = item.name || ''
                 }
 
                 if (modalDescription) {
-                    (modalDescription as HTMLParagraphElement).innerText = dataset.description
+                    (modalDescription as HTMLParagraphElement).innerText = item.description || ''
                 }
 
-                if (modalPrice) {
-                    const price = parseFloat(dataset.price).toFixed(2);
-                    (modalPrice as HTMLParagraphElement).innerText = price.toString()
+                if (modalPrice) { 
+                    (modalPrice as HTMLParagraphElement).innerText = item.price.toFixed(2).toString()
                 }
 
                 if (modalDate) {
-                    (modalDate as HTMLParagraphElement).innerText = 'Last updated ' + dataset.date
+                    (modalDate as HTMLParagraphElement).innerText = 'Last updated ' + item.date
                 }
-
             })
         }
     }
-
 }
 
 function renderPage(data: IData) {
