@@ -1,14 +1,14 @@
-// import { setState2 } from "./state"
+// import { setState } from "./state"
 
-async function fetchData(route: string) {
+const fetchData = async (route: string) => {
 
-    // setState2(route)
-
+    
     const activeCategoryContainer = document.getElementById('goodsContainer')
+
     if (activeCategoryContainer === null) return
 
     activeCategoryContainer.innerHTML = ''
-    route = window.location.origin + route
+    // route = window.location.origin + apiPrefix + route
 
     const spinner = document.getElementById('spinner')
     spinner?.setAttribute('style', 'display: flex;')
@@ -22,7 +22,8 @@ async function fetchData(route: string) {
     } else {
         console.log("HTTP error: " + response.status)
     }
+
     return []
 }
 
-export {fetchData}
+export { fetchData }

@@ -35,9 +35,7 @@
             </div>
             <div class="col-2">
                 <h3><?= $rightHeader ?></h3>
-                <div id="filtersContainer">
-                    <select class="form-select" id="filter" aria-label="Default select example"></select>
-                </div>
+                <div id="filtersContainer"></div>
             </div>
         </div>
 
