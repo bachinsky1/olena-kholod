@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Models;
 use App\Application;
 
-abstract class Model
+abstract class BaseModel
 {  
     protected $app;
 

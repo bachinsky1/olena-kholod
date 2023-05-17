@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 use App\Models\Categories;
 
-class ApiController extends Controller
+class ApiController extends BaseController
 {
     // static method is better for bramus router
     public static function getCategories(int $id = null, int $sort = null)

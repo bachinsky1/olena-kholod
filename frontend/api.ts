@@ -1,7 +1,9 @@
+// import { setState2 } from "./state"
 
 async function fetchData(route: string) {
 
-    
+    // setState2(route)
+
     const activeCategoryContainer = document.getElementById('goodsContainer')
     if (activeCategoryContainer === null) return
 

@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 // Here should set some additional common functionality
-abstract class Controller
+abstract class BaseController
 {
     public function __construct()
     {

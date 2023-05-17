@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-class Categories extends Model
+class Categories extends BaseModel
 {
     public function __construct()
     {

@@ -4,10 +4,10 @@
 
 spl_autoload_register(function () {
     require_once __DIR__ . "/../vendor/autoload.php";
-    require_once  __DIR__ . "/../backend/models/Model.php";
+    require_once  __DIR__ . "/../backend/models/BaseModel.php";
     require_once  __DIR__ . "/../backend/models/Categories.php";
     require_once __DIR__ . "/../backend/Apllication.php";
-    require_once  __DIR__ . "/../backend/controllers/Controller.php";
+    require_once  __DIR__ . "/../backend/controllers/BaseController.php";
     require_once  __DIR__ . "/../backend/controllers/IndexController.php";
     require_once  __DIR__ . "/../backend/controllers/ApiController.php";
 });
