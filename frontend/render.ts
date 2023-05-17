@@ -1,10 +1,10 @@
 import { setState } from "./state"
 import { IActiveCategory, ICategory, IData } from "./types"
-  
+
 const parseUrl = () => {
     const url = window.location.pathname
     const params = url.split("/")
-    
+
     const currentCategory = params[2] || 1
     const currentSortType = params[3] || 1
 
@@ -14,7 +14,7 @@ const parseUrl = () => {
 let { currentCategory, currentSortType } = parseUrl()
 
 const renderPage = (data: IData) => {
-    
+
     renderFilters()
     renderCategories(data.categories)
     renderActiveCategory(data.active)
@@ -40,12 +40,12 @@ const renderCategories = (categories: Array<ICategory>) => {
 
         link.addEventListener('click', (e) => {
             if (!(e.target instanceof HTMLAnchorElement)) return
- 
+
             currentCategory = Number(e.target.dataset.category_id)
             const el = document.getElementById("filter") as HTMLSelectElement
             const currentSortType = el.options[el.selectedIndex].value
-            
-            setState(`/categories/${currentCategory}/${currentSortType}`) 
+
+            setState(`/categories/${currentCategory}/${currentSortType}`)
         })
 
         div.appendChild(link)
@@ -71,12 +71,12 @@ const renderFilters = () => {
     `
 
     select.selectedIndex = Number(currentSortType) - 1
-    
+
     select.addEventListener('change', (e) => {
         const select = e.target as HTMLSelectElement
-        currentSortType = Number(select.options[select.selectedIndex].value) 
-        select.selectedIndex = Number(select.options[select.selectedIndex].value) 
-        setState(`/categories/${currentCategory}/${currentSortType}`)  
+        currentSortType = Number(select.options[select.selectedIndex].value)
+        select.selectedIndex = Number(select.options[select.selectedIndex].value)
+        setState(`/categories/${currentCategory}/${currentSortType}`)
     })
 
     filtersContainer.appendChild(select)

@@ -20,4 +20,4 @@ interface IData {
     active: Array<IActiveCategory>,
 }
 
-export {ICategory, IActiveCategory, IData }
+export { ICategory, IActiveCategory, IData }

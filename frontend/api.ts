@@ -1,14 +1,11 @@
-// import { setState } from "./state"
 
 const fetchData = async (route: string) => {
 
-    
     const activeCategoryContainer = document.getElementById('goodsContainer')
 
     if (activeCategoryContainer === null) return
 
     activeCategoryContainer.innerHTML = ''
-    // route = window.location.origin + apiPrefix + route
 
     const spinner = document.getElementById('spinner')
     spinner?.setAttribute('style', 'display: flex;')
