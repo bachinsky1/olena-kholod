@@ -1,5 +1,7 @@
 
 import { createRouter } from 'routerjs'
+import { ICategory, IActiveCategory, IData } from './types'
+import { fetchData } from './api'
 
 const router = createRouter()
 
@@ -7,53 +9,6 @@ let currentSortType = Number(localStorage.getItem("currentSortType")) | 1
 let currentCategory = Number(localStorage.getItem("currentCategory")) | 1
 
 setState(`/categories/${currentCategory}/${currentSortType}`)
-interface ICategory {
-    id: number,
-    name: string,
-    count: number
-}
-interface IActiveCategory {
-    category_id: number,
-    count: number,
-    date: string,
-    description: string,
-    id: number,
-    name: string,
-    price: number,
-}
-interface IData {
-    categories: Array<ICategory>,
-    active: Array<IActiveCategory>,
-}
-interface Dataset {
-    name: string,
-    description: string,
-    price: string,
-    date: string,
-}
-
-async function fetchData(route: string) {
-
-    const activeCategoryContainer = document.getElementById('goodsContainer')
-    if (activeCategoryContainer === null) return
-
-    activeCategoryContainer.innerHTML = ''
-    route = window.location.origin + route
-
-    const spinner = document.getElementById('spinner')
-    spinner?.setAttribute('style', 'display: flex;')
-
-    const response = await fetch(route)
-    spinner?.setAttribute('style', 'display: none !important;')
-
-    if (response.ok) {
-        const result = await response.json()
-        return result
-    } else {
-        console.log("HTTP error: " + response.status)
-    }
-    return []
-}
 
 function setState(state: string) {
     const url = window.location.origin + state
@@ -142,27 +97,27 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
         const btn = document.querySelector(`#open-modal-${item.id}`)
 
         if (btn) {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', () => {
 
-                const modalName = document.getElementById('modal-name')
-                const modalDescription = document.getElementById('modal-description')
-                const modalPrice = document.getElementById('modal-price')
-                const modalDate = document.getElementById('modal-date')
+                const modalName = document.getElementById('modal-name') as HTMLParagraphElement
+                const modalDescription = document.getElementById('modal-description') as HTMLParagraphElement
+                const modalPrice = document.getElementById('modal-price') as HTMLParagraphElement
+                const modalDate = document.getElementById('modal-date') as HTMLParagraphElement
 
                 if (modalName) {
-                    (modalName as HTMLParagraphElement).innerText = item.name || ''
+                    modalName.textContent = item.name || ''
                 }
 
                 if (modalDescription) {
-                    (modalDescription as HTMLParagraphElement).innerText = item.description || ''
+                    modalDescription.textContent = item.description || ''
                 }
 
                 if (modalPrice) {
-                    (modalPrice as HTMLParagraphElement).innerText = item.price.toFixed(2).toString()
+                    modalPrice.textContent = item.price.toFixed(2).toString()
                 }
 
                 if (modalDate) {
-                    (modalDate as HTMLParagraphElement).innerText = 'Last updated ' + item.date
+                    modalDate.textContent = 'Last updated ' + item.date
                 }
             })
         }
