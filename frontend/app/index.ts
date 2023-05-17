@@ -181,7 +181,7 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
                 }
 
                 if (modalDate) {
-                    (modalDate as HTMLParagraphElement).innerText = 'Last updated' + dataset.date
+                    (modalDate as HTMLParagraphElement).innerText = 'Last updated ' + dataset.date
                 }
 
             })
