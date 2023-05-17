@@ -35,7 +35,7 @@ const renderCategories = (categories: Array<ICategory>) => {
 
         link.setAttribute('href', '#')
         link.classList.add(...['list-group-item', 'list-group-item-action'])
-        link.innerHTML = item.name + ` (${item.count})`
+        link.textContent = item.name + ` (${item.count})`
         link.dataset.category_id = item.id.toString()
 
         link.addEventListener('click', (e) => {
@@ -92,16 +92,18 @@ const renderActiveCategory = (active: Array<IActiveCategory>) => {
     activeCategoryContainer.innerHTML = ''
 
     for (const item of active) {
+        
         const div = document.createElement('div')
         div.classList.add('col')
+        div.setAttribute('id', `card-${item.name}`)
 
         div.innerHTML = /*html*/`
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">${item.name}</h5>
-                    <p class="card-text">${item.description}</p>
-                    <p class="card-text">${item.price.toFixed(2)}</p>
-                    <p class="card-text"><small class="text-muted">Last updated ${item.date}</small></p>
+                    <h5 class="card-title"></h5>
+                    <p class="card-text card-text-description"></p>
+                    <p class="card-text card-text-price"></p>
+                    <p class="card-text"><small class="text-muted text-muted-date"></small></p>
                     <button type="button" 
                         class="btn btn-primary"
                         data-bs-toggle="modal" 
@@ -111,6 +113,18 @@ const renderActiveCategory = (active: Array<IActiveCategory>) => {
                     </button> 
                 </div>
             </div>`
+
+        const title = div.querySelector("h5") as HTMLHeadingElement
+        title.textContent = item.name
+
+        const description = div.querySelector(".card-text-description") as HTMLParagraphElement
+        description.textContent = item.description
+
+        const price = div.querySelector(".card-text-price") as HTMLParagraphElement
+        price.textContent = item.price.toFixed(2)
+
+        const date = div.querySelector(".text-muted-date") as HTMLElement
+        date.textContent = `Last updated ${item.date}`
 
         activeCategoryContainer?.appendChild(div)
 
