@@ -175,7 +175,6 @@ const renderModal = () => {
     `
 }
 
-
 renderModal()
 
 export { renderPage }

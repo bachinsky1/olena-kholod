@@ -9,5 +9,4 @@ const setState = async (state: string) => {
     renderPage(data)
 }
 
-
 export { setState }
