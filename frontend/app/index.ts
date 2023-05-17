@@ -35,6 +35,7 @@ async function fetchData(route: string) {
 
     const spinner = document.getElementById('spinner')
     spinner?.setAttribute('style', 'display: flex;')
+    
     const response = await fetch(route)
     spinner?.setAttribute('style', 'display: none !important;')
 
@@ -96,7 +97,7 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
     for (const item of active) {
         const div = document.createElement('div')
         div.classList.add('col')
-        // div.setAttribute('style', 'width: 18rem;')
+        
         div.innerHTML = /*html*/`
             <div class="card">
                 <div class="card-body">
@@ -131,10 +132,10 @@ function addEventListeners() {
 }
 
 router.get('/categories', async () => {
-    const data: IData = await fetchData('api/categories')
+    const data: IData = await fetchData('/api/categories')
     renderPage(data)
     console.log(data)
-})
+}) 
 
 router.get('/categories/:id', async (req, context) => {
     const id: string = req.params.id.toString()
@@ -151,7 +152,7 @@ router.get('/categories/:id/:sort', async (req, context) => {
 
 router.get('/', async () => {
     const data: IData = await fetchData(`/api/categories`)
-    renderPage(data)
+    renderPage(data) 
 })
 
 addEventListeners()

@@ -33,7 +33,7 @@ $app->db = new Database([
     'port' => $_ENV['DB_PORT']
 ]);
 
-// make a router here
+// make a router here. It should replace to another file
 $router = new Router();
 $router->setNamespace('\App\Controllers'); 
 
@@ -47,5 +47,15 @@ $router->get('/categories/{id}/{sort}', 'IndexController@index');
 $router->get('/categories/{id}', 'IndexController@index');
 $router->get('/categories', 'IndexController@index');
 $router->get('/', 'IndexController@index'); 
+
+$router->set404('/', function() {
+    header('HTTP/1.1 404 Not Found');
+    header('Content-Type: application/json');
+ 
+    echo json_encode([
+        'status' => '404',
+        'status_text' => 'route not defined',
+    ]);
+});
 
 $router->run();

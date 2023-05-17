@@ -5,6 +5,14 @@ class IndexController extends Controller
 {
     public function index()
     {
-        echo file_get_contents(__DIR__ . "/../views/main.php");
+        // It's a simple example of transfering data to view. It should been more improved
+        extract([
+            'leftHeader' => "Categories",
+            'centertHeader' => "Goods",
+            'rightHeader' => "Filters",
+
+        ]);
+        
+        include __DIR__ . "/../views/main.php";
     }
 }
