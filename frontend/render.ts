@@ -76,8 +76,7 @@ const renderFilters = () => {
         const select = e.target as HTMLSelectElement
         currentSortType = Number(select.options[select.selectedIndex].value) 
         select.selectedIndex = Number(select.options[select.selectedIndex].value) 
-        setState(`/categories/${currentCategory}/${currentSortType}`) 
-        console.log(currentSortType)
+        setState(`/categories/${currentCategory}/${currentSortType}`)  
     })
 
     filtersContainer.appendChild(select)
