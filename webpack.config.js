@@ -6,7 +6,7 @@ module.exports = {
         aggregateTimeout: 200,
         poll: 1000,
     },
-    entry: './frontend/app/index.ts',
+    entry: './frontend/index.ts',
     module: {
         rules: [
             {
