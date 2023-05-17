@@ -104,12 +104,11 @@ function renderFilters() {
     const select = document.getElementById('filter') as HTMLSelectElement
 
     select.innerHTML = /*html*/`
-        <option value="1" selected>Cheaper first</option>
+        <option value="1">Cheaper first</option>
         <option value="2">Alphabetically</option>
         <option value="3">New first</option>
     `
     select.selectedIndex = currentSortType - 1
-
 }
 
 function renderActiveCategory(active: Array<IActiveCategory>) {
@@ -175,9 +174,9 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
 }
 
 function renderPage(data: IData) {
-    renderFilters()
     if (data.categories.length === 0) return
 
+    renderFilters()
     renderCategories(data.categories)
     renderActiveCategory(data.active)
 }
