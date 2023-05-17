@@ -33,11 +33,12 @@ class Categories extends Model
                 $sortCondition = " ORDER BY goods.name";
                 break;
             case 3:
-                break;
                 $sortCondition = " ORDER BY goods.date DESC";
+                break;
             default:
-
         }
+
+        // var_dump($sort);
 
         return $this->app->db->rows("SELECT * FROM goods WHERE category_id = ? $sortCondition;", [$id]);
     }

@@ -29,6 +29,13 @@ interface IData {
     active: Array<IActiveCategory>,
 }
 
+interface Dataset {
+    name: string,
+    description: string,
+    price: string,
+    date: string,
+}
+
 async function fetchData(route: string) {
 
     const activeCategoryContainer = document.getElementById('goodsContainer')
@@ -125,12 +132,62 @@ function renderActiveCategory(active: Array<IActiveCategory>) {
                     <p class="card-text">${item.description}</p>
                     <p class="card-text">${item.price.toFixed(2)}</p>
                     <p class="card-text"><small class="text-muted">Last updated ${item.date}</small></p>
-                    <a href="#" data-id="${item.id}" class="btn btn-primary">Buy this</a>
+                    <button type="button" 
+                        class="btn btn-primary" 
+                        data-name="${item.name}"
+                        data-description="${item.description}"
+                        data-price="${item.price}"
+                        data-date="${item.date}"
+                        data-id="${item.id}"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#myModal"
+                        id="open-modal-${item.id}">
+                        Buy this
+                    </button> 
                 </div>
             </div>`
 
         activeCategoryContainer?.appendChild(div)
+
+        const btn = document.querySelector(`#open-modal-${item.id}`)
+        
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                const data = (e.target as HTMLElement).dataset
+
+                const dataset: Dataset = {
+                    name: data.name || '',
+                    description: data.description || '',
+                    price: data.price || '',
+                    date: data.date || '',
+                }
+
+                const modalName = document.getElementById('modal-name')
+                const modalDescription = document.getElementById('modal-description')
+                const modalPrice = document.getElementById('modal-price')
+                const modalDate = document.getElementById('modal-date')
+
+                if (modalName) {
+                    (modalName as HTMLParagraphElement).innerText = dataset.name
+                }
+
+                if (modalDescription) {
+                    (modalDescription as HTMLParagraphElement).innerText = dataset.description
+                }
+
+                if (modalPrice) {
+                    const price = parseFloat(dataset.price).toFixed(2);
+                    (modalPrice as HTMLParagraphElement).innerText = price.toString()
+                }
+
+                if (modalDate) {
+                    (modalDate as HTMLParagraphElement).innerText = 'Last updated' + dataset.date
+                }
+
+            })
+        }
     }
+
 }
 
 function renderPage(data: IData) {
@@ -139,6 +196,37 @@ function renderPage(data: IData) {
 
     renderCategories(data.categories)
     renderActiveCategory(data.active)
+}
+
+function renderModal() {
+    const modal = document.getElementById('myModal') as HTMLElement
+    if (!modal) return
+
+    modal.innerHTML = /*html*/`
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-name"></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p id="modal-description"></p>
+                    <p id="modal-price"></p>
+                    <p id="modal-date"></p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    `
 }
 
 function addEventListeners() {
@@ -153,6 +241,8 @@ function addEventListeners() {
             setState(`/categories/${currentCategory}/${currentSortType}`)
         })
     }
+
+
 }
 
 router.get('/categories', async () => {
@@ -179,6 +269,7 @@ router.get('/', async () => {
     renderPage(data)
 })
 
-addEventListeners()
+renderModal()
 
+addEventListeners()
 router.run()
