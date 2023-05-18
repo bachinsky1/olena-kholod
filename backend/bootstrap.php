@@ -43,19 +43,20 @@ $router->mount('/api', function () use ($router) {
     $router->get('/categories', 'ApiController@getCategories');
 });
 
-$router->get('/categories/{id}/{sort}', 'IndexController@index');
-$router->get('/categories/{id}', 'IndexController@index');
-$router->get('/categories', 'IndexController@index');
+$router->mount('/categories', function () use ($router) {
+    $router->get('/{id}/{sort}', 'IndexController@index');
+    $router->get('/{id}', 'IndexController@index');
+});
+
 $router->get('/', 'IndexController@index');
 
 $router->set404('/', function () {
     header('HTTP/1.1 404 Not Found');
-    header('Content-Type: application/json');
+    header('Content-Type: text/html');
 
-    echo json_encode([
-        'status' => '404',
-        'status_text' => 'route not defined',
-    ]);
+    echo '<p style="width:100%; text-align:center; margin-top:15rem; font-size:7rem; font-weight:bold; color:red">
+            Page not found! WTF?! 
+         </p>';
 });
 
 $router->run();
