@@ -22,7 +22,7 @@ class Categories extends BaseModel
         );
     }
 
-    public function getOne(int $id, int $sort = 1): array
+    public function getOne(int $id, int $sort): array
     {
         if (!!$id === false) return [];
 

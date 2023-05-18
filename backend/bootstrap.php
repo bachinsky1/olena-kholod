@@ -46,6 +46,7 @@ $router->mount('/api', function () use ($router) {
 $router->mount('/categories', function () use ($router) {
     $router->get('/{id}/{sort}', 'IndexController@index');
     $router->get('/{id}', 'IndexController@index');
+    $router->get('/', 'IndexController@index');
 });
 
 $router->get('/', 'IndexController@index');
