@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  web:
+    image: php:7.4-apache
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html/
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: olena
+      MYSQL_USER: superpassword
+      MYSQL_PASSWORD: 
+      MYSQL_ROOT_PASSWORD: superpassword
+    volumes:
+      - ./mysql_data:/var/lib/mysql
