@@ -11,10 +11,10 @@ Run `bash run.sh` for authomaticaly deploying or make next steps
 
 - Run `npm install`
 
-- Run `npx webpack` if you want recompile typescript
-
 - Run `cd public`
 
 - Run `php -S localhost:8000`
 
 - Open `http://localhost:8000`
+
+- Run `npx webpack` if you want recompile typescript
