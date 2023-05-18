@@ -1,7 +1,7 @@
 import { setState } from "./state"
 import { IActiveCategory, ICategory, IData } from "./types"
 
-const parseUrl = () => {
+const parseUrl = (): { currentCategory: string | number, currentSortType: string | number } => {
     const url = window.location.pathname
     const params = url.split("/")
 
@@ -13,14 +13,14 @@ const parseUrl = () => {
 
 let { currentCategory, currentSortType } = parseUrl()
 
-const renderPage = (data: IData) => {
+const renderPage = (data: IData): void => {
 
     renderFilters()
     renderCategories(data.categories)
     renderActiveCategory(data.active)
 }
 
-const renderCategories = (categories: Array<ICategory>) => {
+const renderCategories = (categories: Array<ICategory>): void => {
     // Render categories
     const categoriesContainer = document.getElementById('categoriesContainer')
     if (categoriesContainer === null) return
@@ -55,7 +55,7 @@ const renderCategories = (categories: Array<ICategory>) => {
     categoriesContainer.appendChild(div)
 }
 
-const renderFilters = () => {
+const renderFilters = (): void => {
     const filtersContainer = document.getElementById('filtersContainer') as HTMLSelectElement
     filtersContainer.innerHTML = ''
     const select = document.createElement('select')
@@ -82,7 +82,7 @@ const renderFilters = () => {
     filtersContainer.appendChild(select)
 }
 
-const renderActiveCategory = (active: Array<IActiveCategory>) => {
+const renderActiveCategory = (active: Array<IActiveCategory>): void => {
     // Render active category
     const activeCategoryContainer = document.getElementById('goodsContainer')
     if (activeCategoryContainer === null) return
@@ -158,7 +158,7 @@ const renderActiveCategory = (active: Array<IActiveCategory>) => {
     }
 }
 
-const renderModal = () => {
+const renderModal = (): void => {
     const modal = document.getElementById('myModal') as HTMLElement
     if (!modal) return
 

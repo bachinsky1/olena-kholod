@@ -1,6 +1,6 @@
 import { IData } from "./types"
 
-const fetchData = async (route: string) => {
+const fetchData = async (route: string): Promise<IData | never[] | undefined> => {
 
     const activeCategoryContainer = document.getElementById('goodsContainer')
 
