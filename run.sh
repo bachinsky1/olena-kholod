@@ -71,7 +71,7 @@ echo "Trying connect to database and fill it..."
 
 php -f ./scripts/migration.php
 
-echo ". Starting development server"
+echo ". Starting development server..."
 cd public
 sleep 3
 clear
