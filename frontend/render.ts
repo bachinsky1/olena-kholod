@@ -92,7 +92,7 @@ const renderActiveCategory = (active: Array<IActiveCategory>) => {
     activeCategoryContainer.innerHTML = ''
 
     for (const item of active) {
-        
+
         const div = document.createElement('div')
         div.classList.add('col')
         div.setAttribute('id', `card-${item.name}`)

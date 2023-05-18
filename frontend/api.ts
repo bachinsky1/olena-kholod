@@ -1,3 +1,4 @@
+import { IData } from "./types"
 
 const fetchData = async (route: string) => {
 
@@ -14,7 +15,7 @@ const fetchData = async (route: string) => {
     spinner?.setAttribute('style', 'display: none !important;')
 
     if (response.ok) {
-        const result = await response.json()
+        const result: IData = await response.json()
         return result
     } else {
         console.log("HTTP error: " + response.status)
