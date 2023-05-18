@@ -5,26 +5,13 @@
 -- HeidiSQL Версія:              12.3.0.6589
 -- --------------------------------------------------------
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
--- Dumping database structure for olena
-CREATE DATABASE IF NOT EXISTS `olena` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `olena`;
-
 -- Dumping structure for таблиця olena.categories
-CREATE TABLE IF NOT EXISTS `categories` (
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table olena.categories: ~2 rows (приблизно)
 DELETE FROM `categories`;
@@ -34,6 +21,7 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 	(3, 'Smartphones');
 
 -- Dumping structure for таблиця olena.goods
+DROP TABLE IF EXISTS `goods`;
 CREATE TABLE IF NOT EXISTS `goods` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -45,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `goods` (
   PRIMARY KEY (`id`),
   KEY `FK_goods_categories` (`category_id`),
   CONSTRAINT `FK_goods_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table olena.goods: ~14 rows (приблизно)
 DELETE FROM `goods`;
@@ -65,8 +53,3 @@ INSERT INTO `goods` (`id`, `name`, `description`, `price`, `count`, `date`, `cat
 	(13, 'Samsung Galaxy A8', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin massa tellus, fringilla in nisi in, ullamcorper pretium lectus. Praesent nunc tellus, eleifend eu risus id, tristique bibendum augue. Curabitur velit sem, malesuada vulputate dapibus in fusce.', 555, 8, '2023-05-16 08:02:56', 3),
 	(14, 'Samsung Galaxy S7 Duos', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi condimentum luctus nunc, quis posuere ipsum commodo nec. In imperdiet massa porta ante vehicula, at tincidunt eros facilisis. Pellentesque purus magna, consectetur ut lobortis et, volutpat ac.', 700, 4, '2023-05-16 08:03:21', 3);
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
