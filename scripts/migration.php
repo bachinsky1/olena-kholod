@@ -18,7 +18,7 @@ try {
 
     $stmt->closeCursor();
     $conn = null;
-    echo 'Database successfully filled';
+    echo 'Database successfully filled. ';
 } catch(PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
