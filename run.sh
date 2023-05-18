@@ -46,7 +46,7 @@ then
     DB_USER=root
 fi
 
-printf "${Blue}Database password ${Green}(default - empty): " 
+printf "${Blue}Database password ${Green}(default - empty):" 
 read DB_PASS
 
 if [[ -z "$DB_PASS" ]]
@@ -54,7 +54,7 @@ then
     DB_PASS=""
 fi
 
-printf "${Blue}Database port ${Green}(default - 3306): " 
+printf "${Blue}Database port ${Green}(default - 3306):" 
 read DB_PORT
 
 if [[ -z "$DB_PORT" ]]
