@@ -9,7 +9,7 @@ abstract class BaseModel
     protected $app;
 
     public function __construct() {
-        $this->app = &Application::getInstance();
+        $this->app = Application::getInstance();
     }
 
 }

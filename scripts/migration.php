@@ -11,7 +11,7 @@ try {
     $conn = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS']);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = file_get_contents(__DIR__ .'/../mysql.sql');
+    $sql = file_get_contents(__DIR__ .'/mysql.sql');
     
     $stmt = $conn->prepare($sql);
     $stmt->execute();

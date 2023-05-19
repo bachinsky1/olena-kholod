@@ -1,0 +1,44 @@
+version: "3"
+services:
+    web:
+        restart: always
+        image: nginx
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/var/www
+            - ./default.conf:/etc/nginx/conf.d/default.conf
+    php:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        restart: always
+        environment:
+            IS_DOCKER: true
+            DB_HOST: mysql
+            DB_NAME: olena
+            DB_USER: root
+            DB_PASS: root
+            DB_PORT: 3306
+        volumes:
+            - ./:/var/www 
+    mysql:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root 
+            MYSQL_ALLOW_EMPTY_PASSWORD: true
+        restart: always
+        volumes:
+            - ./database:/var/lib/mysql
+            - ./scripts:/docker-entrypoint-initdb.d
+        ports:
+            - "3306:3306"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_HOST: mysql
+            PMA_USER: root
+            PMA_PASSWORD: root
+        ports:
+            - "8081:80"
+        restart: always
