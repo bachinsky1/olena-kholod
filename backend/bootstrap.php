@@ -13,35 +13,19 @@ spl_autoload_register(function () {
 });
 
 use Dcblogdev\PdoWrapper\Database;
-use Dotenv\Dotenv;
 use Bramus\Router\Router;
 use App\Application;
 
 $app = Application::getInstance();
 
-$dotenv = Dotenv::createImmutable(__DIR__ . "/..");
-$dotenv->load();
-
-// make a connection to mysql here
-
-$credentials = !!getenv('IS_DOCKER') 
-    ? [
-        'username' => getenv('DB_USER'),
-        'database' => getenv('DB_NAME'),
-        'password' => getenv('DB_PASS'),
-        'type' => 'mysql',
-        'host' => getenv('DB_HOST'),
-        'port' => getenv('DB_PORT'),
-    ] : [
-        'username' => $_ENV['DB_USER'],
-        'database' => $_ENV['DB_NAME'],
-        'password' => $_ENV['DB_PASS'],
-        'type' => 'mysql',
-        'host' => $_ENV['DB_HOST'],
-        'port' => $_ENV['DB_PORT'],
-    ];
-
-$app->db = new Database($credentials);
+$app->db = new Database([
+    'username' => getenv('DB_USER'),
+    'database' => getenv('DB_NAME'),
+    'password' => getenv('DB_PASS'),
+    'type' => 'mysql',
+    'host' => getenv('DB_HOST'),
+    'port' => getenv('DB_PORT'),
+]);
 
 // make a router here. It should replace to another file
 $router = new Router();
