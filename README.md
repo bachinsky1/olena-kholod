@@ -3,7 +3,7 @@ Open some folder and:
 
 Run `git clone https://github.com/bachinsky1/olena-kholod.git .`
 
-Run `bash run.sh` for authomaticaly deploying or make next steps
+Run `bash run.sh` for authomaticaly deploying or do next steps
 
 - Copy `.env.example` to `.env` and change DB connection data if it needs
 
