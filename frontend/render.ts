@@ -121,7 +121,7 @@ const renderActiveCategory = (active: Array<IActiveCategory>): void => {
         description.textContent = item.description
 
         const price = div.querySelector(".card-text-price") as HTMLParagraphElement
-        price.textContent = item.price.toFixed(2)
+        price.textContent = Number(item.price.toString()).toFixed(2)
 
         const date = div.querySelector(".text-muted-date") as HTMLElement
         date.textContent = `Last updated ${item.date}`
@@ -147,7 +147,7 @@ const renderActiveCategory = (active: Array<IActiveCategory>): void => {
                 }
 
                 if (modalPrice) {
-                    modalPrice.textContent = item.price.toFixed(2).toString()
+                    modalPrice.textContent = Number(item.price.toString()).toFixed(2)
                 }
 
                 if (modalDate) {

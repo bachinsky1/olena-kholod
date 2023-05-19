@@ -3,18 +3,25 @@ Open some folder and:
 
 Run `git clone https://github.com/bachinsky1/olena-kholod.git .`
 
-Run `bash run.sh` for authomaticaly deploying or do next steps
+You can start aplication in three modes: 
+- 1  
+    Run `docker-compose up`
 
-- Copy `.env.example` to `.env` and change DB connection data if it needs
+    Application - `http://localhost`
+    PHPMyAdmin - `http://localhost:8081/` 
+- 2 
+  - Run `bash run.sh` for authomaticaly deploying or make next steps
+- 3 - 
+  - Copy `.env.example` to `.env` and change DB connection data if it needs
 
-- Run `composer install`
+  - Run `composer install`
 
-- Run `npm install`
+  - Run `npm install`
 
-- Run `cd public`
+  - Run `cd public`
 
-- Run `php -S localhost:8000`
+  - Run `php -S localhost:8000`
 
-- Open `http://localhost:8000`
+  - Open `http://localhost:8000`
 
-- Run `npx webpack` if you want recompile typescript
+Run `npx webpack` if you want recompile typescript
